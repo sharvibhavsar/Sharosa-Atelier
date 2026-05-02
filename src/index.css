@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Fraunces:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Sharosa Atelier — fine-art gallery design system.
+   All colors are HSL. Palette:
+   #2E1C2B (deep aubergine), #4A1942 (wine plum), #050404 (near black),
+   #8E1F41 (rosa accent — used sparingly, mainly in the wordmark).
+*/
+
+@layer base {
+  :root {
+    /* Light theme — warm parchment, dark plum text */
+    --background: 35 30% 96%;
+    --foreground: 312 24% 15%;          /* #2E1C2B */
+
+    --card: 35 30% 98%;
+    --card-foreground: 312 24% 15%;
+
+    --popover: 35 30% 98%;
+    --popover-foreground: 312 24% 15%;
+
+    --primary: 312 47% 19%;             /* #4A1942 */
+    --primary-foreground: 35 30% 96%;
+
+    --secondary: 35 20% 90%;
+    --secondary-foreground: 312 24% 15%;
+
+    --muted: 35 18% 88%;
+    --muted-foreground: 312 12% 35%;
+
+    --accent: 312 24% 15%;              /* aubergine accent */
+    --accent-foreground: 35 30% 96%;
+
+    --rosa: 339 64% 34%;                /* #8E1F41 — branding only */
+    --rosa-foreground: 35 30% 96%;
+
+    --destructive: 0 70% 40%;
+    --destructive-foreground: 35 30% 96%;
+
+    --border: 312 14% 80%;
+    --input: 312 14% 84%;
+    --ring: 312 47% 19%;
+
+    --radius: 0.25rem;
+
+    --gradient-hero: linear-gradient(135deg, hsl(312 24% 15%) 0%, hsl(312 47% 19%) 60%, hsl(0 0% 2%) 100%);
+    --gradient-overlay: linear-gradient(180deg, hsl(312 24% 15% / 0.85), hsl(0 0% 2% / 0.95));
+    --shadow-art: 0 30px 60px -20px hsl(312 24% 8% / 0.45);
+    --shadow-soft: 0 8px 24px -8px hsl(312 24% 15% / 0.18);
+    --transition-art: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .dark {
+    --background: 0 0% 4%;              /* near black */
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 9%;                    /* dark charcoal */
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+
+    --secondary: 0 0% 15%;              /* dark gray */
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 64%;
+
+    --accent: 0 0% 15%;                 /* dark gray */
+    --accent-foreground: 0 0% 98%;
+
+    --rosa: 339 64% 34%;                /* #8E1F41 - keep accent color */
+    --rosa-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 83%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 2%) 0%, hsl(0 0% 6%) 50%, hsl(0 0% 12%) 100%);
+    --gradient-overlay: linear-gradient(180deg, hsl(0 0% 2% / 0.7), hsl(0 0% 2% / 0.95));
+    --shadow-art: 0 30px 80px -20px hsl(0 0% 0% / 0.7);
+    --shadow-soft: 0 8px 24px -8px hsl(0 0% 0% / 0.5);
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  /* Elegant custom scrollbar */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary) / 0.5) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, hsl(var(--primary) / 0.55), hsl(var(--rosa) / 0.7));
+    border: 2px solid hsl(var(--background));
+    border-radius: 999px;
+    transition: background 200ms ease;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, hsl(var(--rosa)), hsl(var(--primary)));
+  }
+  ::-webkit-scrollbar-corner { background: transparent; }
+}
+
+@layer components {
+  .wordmark {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    @apply tracking-tight;
+    font-weight: 400;
+    color: hsl(var(--foreground));
+  }
+  .wordmark > span { font-size: 1em; font-weight: inherit; font-family: inherit; color: inherit; }
+  .wordmark .rosa {
+    font-family: inherit;
+    color: hsl(var(--rosa));
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: inherit;
+  }
+
+  .art-card {
+    @apply relative overflow-hidden bg-card border border-border;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .art-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+  }
+  .art-card img {
+    transition: filter 0.3s ease;
+  }
+
+  .nav-link {
+    @apply relative inline-block text-xs lg:text-sm tracking-wide uppercase text-foreground/70 px-2 lg:px-3 py-2 rounded-md;
+    transition: background-color 200ms ease, color 200ms ease, font-weight 200ms ease;
+  }
+  .nav-link:hover {
+    background-color: #8E4585; /* plum */
+    color: #ffffff;
+    font-weight: 700;
+  }
+  .nav-link:active { transform: translateY(0); }
+  .nav-link.active { @apply text-foreground; }
+
+  .mobile-nav-link {
+    @apply relative block transition-colors duration-200;
+  }
+  .mobile-nav-link .mobile-nav-label {
+    @apply relative inline-block;
+  }
+  .mobile-nav-link:hover { @apply text-foreground; }
+}
