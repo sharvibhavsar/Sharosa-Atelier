@@ -1,4 +1,4 @@
-import { Artwork } from "@/types";
+import { Artwork } from "../types";
 
 type Props = {
   artwork: Artwork;

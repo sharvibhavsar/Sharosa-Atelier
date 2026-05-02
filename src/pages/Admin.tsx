@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { Layout } from "@/components/Layout";
-import { useAuth } from "@/hooks/useAuth";
+import { Layout } from "../components/Layout";
+import { useAuth } from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { SECTIONS } from "@/lib/categories";
-import { supabase } from "@/integrations/supabase/client";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Textarea } from "../components/ui/textarea";
+import { SECTIONS } from "../lib/categories";
+import { supabase } from "../integrations/supabase/client";
 import { toast } from "sonner";
 import { Trash2, Upload, Pencil, X } from "lucide-react";
-import { Artwork } from "@/types";
+import { Artwork } from "../types";
 
 const Admin = () => {
   const { isAdmin, loading, user } = useAuth();

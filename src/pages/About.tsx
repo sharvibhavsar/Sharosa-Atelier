@@ -1,5 +1,5 @@
-import { Layout } from "@/components/Layout";
-import { Wordmark } from "@/components/Wordmark";
+import { Layout } from "../components/Layout";
+import { Wordmark } from "../components/Wordmark";
 import { Award, Palette, Sparkles } from "lucide-react";
 
 const About = () => (

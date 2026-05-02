@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { Artwork } from "@/types";
+import { supabase } from "../integrations/supabase/client";
+import { Artwork } from "../types";
 import { ArtworkCard } from "./ArtworkCard";
 import { ArtworkDialog } from "./ArtworkDialog";
-import { Button } from "@/components/ui/button";
+import { Button } from "../components/ui/button";
 
 type Props = {
   section: string;

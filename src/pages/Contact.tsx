@@ -1,4 +1,4 @@
-import { Layout } from "@/components/Layout";
+import { Layout } from "../components/Layout";
 import { Mail, Linkedin, ExternalLink, Phone } from "lucide-react";
 
 const Pinterest = () => (

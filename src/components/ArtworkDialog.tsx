@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Artwork } from "@/types";
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import { Artwork } from "../types";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "../components/ui/dialog";
+import { Button } from "../components/ui/button";
 import { toast } from "sonner";
 
 type Props = {

@@ -1,13 +1,13 @@
 import { NavLink, Link } from "react-router-dom";
 import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
-import { useAuth } from "@/hooks/useAuth";
-import { Button } from "@/components/ui/button";
+import { useAuth } from "../hooks/useAuth";
+import { Button } from "../components/ui/button";
 import { Menu, X, LogOut, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import {
   Sheet, SheetContent, SheetTrigger,
-} from "@/components/ui/sheet";
+} from "../components/ui/sheet";
 
 const links = [
   { to: "/", label: "Home", end: true, key: "home" },

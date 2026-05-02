@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { Layout } from "@/components/Layout";
-import { sectionBySlug } from "@/lib/categories";
-import { Gallery } from "@/components/Gallery";
+import { Layout } from "../components/Layout";
+import { sectionBySlug } from "../lib/categories";
+import { Gallery } from "../components/Gallery";
 import NotFound from "./NotFound";
 
 const SectionPage = () => {

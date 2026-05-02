@@ -1,4 +1,4 @@
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "../integrations/supabase/client";
 
 type FindOpts = { limit?: number; sort?: Record<string, 1 | -1>; skip?: number };
 
