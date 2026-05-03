@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { supabase } from "../integrations/supabase/client";
+import { supabase } from "../lib/supabase";
 import { Artwork } from "../types";
 import { ArtworkCard } from "./ArtworkCard";
 import { ArtworkDialog } from "./ArtworkDialog";
