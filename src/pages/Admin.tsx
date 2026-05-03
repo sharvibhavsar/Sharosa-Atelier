@@ -7,7 +7,7 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
 import { SECTIONS } from "../lib/categories";
-import { supabase } from "../integrations/supabase/client";
+import { supabase } from "../lib/supabase";
 import { toast } from "sonner";
 import { Trash2, Upload, Pencil, X } from "lucide-react";
 import { Artwork } from "../types";
