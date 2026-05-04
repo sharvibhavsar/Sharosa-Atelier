@@ -17,8 +17,11 @@ const About = () => (
           paper crafts, architectural sketching and the bright, fleeting beauty of rangoli.
         </p>
         <p>
-          Every piece on this site is made by hand, kept at my home, some made years ago whereas some recent and shared here for joy —
-          not for sale. The atelier is a window, not a shop.
+          The website is named after artist Sharvi who loves pink, Sha coming from name and Rosa is standing for pink in Spanish.
+        </p>
+
+        <p>
+          Every piece on this site is made by hand, kept at my home, some made years ago whereas some recent and shared here for joy — not for sale. The atelier is a window, not a shop.
         </p>
       </div>
 
@@ -35,8 +38,8 @@ const About = () => (
           <Sparkles className="h-6 w-6 text-foreground/60 mb-4" />
           <h3 className="font-display text-xl mb-2">Rangoli</h3>
           <p className="text-sm text-muted-foreground">
-            Festive, themed as well as competition rangoli — color poured directly onto the floor. 
-    
+            Festive, themed as well as competition rangoli — color poured directly onto the floor.
+
           </p>
         </div>
         <div className="bg-background p-8">
@@ -44,7 +47,7 @@ const About = () => (
           <h3 className="font-display text-xl mb-2">Achievements</h3>
           <p className="text-sm text-muted-foreground">
             Multiple rangoli competition winner at interclass as well as interschool and university level. Cleared Elementary and Intermediate state level art examinations. Certifications in traditional Indian art forms.
-      
+
           </p>
         </div>
       </div>
