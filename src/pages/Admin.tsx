@@ -26,18 +26,20 @@ const Admin = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [existingImageUrl, setExistingImageUrl] = useState<string>("");
   const [feedbacks, setFeedbacks] = useState<any[]>([]);
+  const [artworksLimit, setArtworksLimit] = useState(50);
+  const [feedbacksLimit, setFeedbacksLimit] = useState(50);
 
   const sectionObj = SECTIONS.find((s) => s.slug === section)!;
   const isEditing = editingId !== null;
 
   const load = async () => {
-    const { data } = await supabase.from("artworks").select("*").order("created_at", { ascending: false });
+    const { data } = await supabase.from("artworks").select("*").order("created_at", { ascending: false }).limit(artworksLimit);
     setItems((data as Artwork[]) ?? []);
     
-    const { data: fData } = await supabase.from("feedback").select("*").order("created_at", { ascending: false });
+    const { data: fData } = await supabase.from("feedback").select("*").order("created_at", { ascending: false }).limit(feedbacksLimit);
     setFeedbacks(fData ?? []);
   };
-  useEffect(() => { if (isAdmin) load(); }, [isAdmin]);
+  useEffect(() => { if (isAdmin) load(); }, [isAdmin, artworksLimit, feedbacksLimit]);
 
   useEffect(() => {
     if (!isEditing) setCategory(sectionObj.categories[0]);
@@ -262,7 +264,7 @@ const Admin = () => {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
             {items.map((a) => (
               <div key={a.id} className={`relative group border bg-muted ${editingId === a.id ? "border-rosa" : "border-border"}`}>
-                <img src={a.image_url} alt={a.title} className="w-full aspect-square object-contain" />
+                <img src={a.image_url} alt={a.title} loading="lazy" decoding="async" className="w-full aspect-square object-contain" />
                 <div className="absolute inset-0 bg-background/95 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition flex flex-col items-center justify-center p-3 text-center gap-2">
                   <p className="text-xs font-medium line-clamp-2">{a.title}</p>
                   <p className="text-[10px] text-muted-foreground">{a.category}</p>
@@ -288,6 +290,13 @@ const Admin = () => {
               </p>
             )}
           </div>
+          {items.length >= artworksLimit && (
+            <div className="mt-8 flex justify-center">
+              <Button variant="outline" onClick={() => setArtworksLimit((l) => l + 50)} className="rounded-none uppercase tracking-widest text-xs h-10 px-8">
+                Load More Artworks
+              </Button>
+            </div>
+          )}
         </div>
 
         <div className="mt-16 md:mt-20 border-t border-border pt-10 md:pt-12">
@@ -321,6 +330,13 @@ const Admin = () => {
                   </p>
                 </div>
               ))}
+            </div>
+          )}
+          {feedbacks.length >= feedbacksLimit && (
+            <div className="mt-8 flex justify-center">
+              <Button variant="outline" onClick={() => setFeedbacksLimit((l) => l + 50)} className="rounded-none uppercase tracking-widest text-xs h-10 px-8">
+                Load More Feedbacks
+              </Button>
             </div>
           )}
         </div>

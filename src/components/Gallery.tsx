@@ -23,7 +23,8 @@ export const Gallery = ({ section, categories }: Props) => {
       .select("*")
       .eq("section", section)
       .order("display_order", { ascending: true })
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false })
+      .limit(300);
     setItems((data as Artwork[]) ?? []);
     setLoading(false);
   };

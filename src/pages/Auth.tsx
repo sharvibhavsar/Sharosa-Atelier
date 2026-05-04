@@ -20,7 +20,7 @@ const Auth = () => {
       return;
     }
     
-    if (password !== 'Honeycomb*67') {
+    if (password !== 'muffins^125') {
       toast.error("Invalid credentials.");
       return;
     }

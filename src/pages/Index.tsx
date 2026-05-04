@@ -20,6 +20,7 @@ const Index = () => {
       .from("artworks")
       .select("*")
       .order("created_at", { ascending: false })
+      .limit(300)
       .then(({ data }) => {
         const artworks = (data as Artwork[]) ?? [];
         
