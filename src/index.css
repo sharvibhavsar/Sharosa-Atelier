@@ -12,7 +12,7 @@
 
 @layer base {
   :root {
-    color-scheme: light;
+    color-scheme: only light;
     /* Light theme — warm parchment, dark plum text */
     --background: 35 30% 96%;
     --foreground: 312 24% 15%;          /* #2E1C2B */
@@ -55,7 +55,7 @@
   }
 
   .dark {
-    color-scheme: dark;
+    color-scheme: only light;
     --background: 0 0% 4%;              /* near black */
     --foreground: 0 0% 98%;
 
