@@ -27,19 +27,37 @@ const Admin = () => {
   const [existingImageUrl, setExistingImageUrl] = useState<string>("");
   const [feedbacks, setFeedbacks] = useState<any[]>([]);
   const [artworksLimit, setArtworksLimit] = useState(50);
-  const [feedbacksLimit, setFeedbacksLimit] = useState(50);
+  const [feedbacksPage, setFeedbacksPage] = useState(0);
+  const [totalFeedbacks, setTotalFeedbacks] = useState(0);
+  const FEEDBACKS_PER_PAGE = 20;
 
   const sectionObj = SECTIONS.find((s) => s.slug === section)!;
   const isEditing = editingId !== null;
 
-  const load = async () => {
+  const loadArtworks = async () => {
     const { data } = await supabase.from("artworks").select("*").order("created_at", { ascending: false }).limit(artworksLimit);
     setItems((data as Artwork[]) ?? []);
-    
-    const { data: fData } = await supabase.from("feedback").select("*").order("created_at", { ascending: false }).limit(feedbacksLimit);
-    setFeedbacks(fData ?? []);
   };
-  useEffect(() => { if (isAdmin) load(); }, [isAdmin, artworksLimit, feedbacksLimit]);
+
+  const loadFeedbacks = async () => {
+    const from = feedbacksPage * FEEDBACKS_PER_PAGE;
+    const to = from + FEEDBACKS_PER_PAGE - 1;
+    const { data: fData, count } = await supabase
+      .from("feedback")
+      .select("*", { count: "exact" })
+      .order("created_at", { ascending: false })
+      .range(from, to);
+    setFeedbacks(fData ?? []);
+    if (count !== null) setTotalFeedbacks(count);
+  };
+
+  useEffect(() => { 
+    if (isAdmin) loadArtworks(); 
+  }, [isAdmin, artworksLimit]);
+
+  useEffect(() => { 
+    if (isAdmin) loadFeedbacks(); 
+  }, [isAdmin, feedbacksPage]);
 
   useEffect(() => {
     if (!isEditing) setCategory(sectionObj.categories[0]);
@@ -134,7 +152,7 @@ const Admin = () => {
       }
 
       resetForm();
-      load();
+      loadArtworks();
     } catch (err: any) {
       console.error(err);
       toast.error(err.message || "Save failed");
@@ -158,7 +176,7 @@ const Admin = () => {
     else {
       if (editingId === a.id) resetForm();
       toast.success("Removed.");
-      load();
+      loadArtworks();
     }
   };
 
@@ -300,7 +318,7 @@ const Admin = () => {
         </div>
 
         <div className="mt-16 md:mt-20 border-t border-border pt-10 md:pt-12">
-          <h2 className="font-display text-2xl md:text-3xl font-light mb-6 md:mb-8">User Feedbacks ({feedbacks.length})</h2>
+          <h2 className="font-display text-2xl md:text-3xl font-light mb-6 md:mb-8">User Feedbacks ({totalFeedbacks})</h2>
           {feedbacks.length === 0 ? (
             <p className="text-sm text-muted-foreground">No feedbacks received yet.</p>
           ) : (
@@ -332,10 +350,26 @@ const Admin = () => {
               ))}
             </div>
           )}
-          {feedbacks.length >= feedbacksLimit && (
-            <div className="mt-8 flex justify-center">
-              <Button variant="outline" onClick={() => setFeedbacksLimit((l) => l + 50)} className="rounded-none uppercase tracking-widest text-xs h-10 px-8">
-                Load More Feedbacks
+          {totalFeedbacks > FEEDBACKS_PER_PAGE && (
+            <div className="mt-8 flex justify-center gap-4 items-center">
+              <Button 
+                variant="outline" 
+                onClick={() => setFeedbacksPage(p => Math.max(0, p - 1))} 
+                disabled={feedbacksPage === 0}
+                className="rounded-none uppercase tracking-widest text-xs h-10 px-6"
+              >
+                Previous
+              </Button>
+              <span className="text-xs uppercase tracking-widest text-muted-foreground">
+                Page {feedbacksPage + 1} of {Math.ceil(totalFeedbacks / FEEDBACKS_PER_PAGE)}
+              </span>
+              <Button 
+                variant="outline" 
+                onClick={() => setFeedbacksPage(p => p + 1)} 
+                disabled={(feedbacksPage + 1) * FEEDBACKS_PER_PAGE >= totalFeedbacks}
+                className="rounded-none uppercase tracking-widest text-xs h-10 px-6"
+              >
+                Next
               </Button>
             </div>
           )}
